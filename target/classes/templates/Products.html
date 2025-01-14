@@ -40,6 +40,7 @@
                 <label class="label">
                     <span class="label-text">Search</span>
                 </label>
+                <div class="flex">
                 <input
                         type="text"
                         id="searchBox"
@@ -47,6 +48,8 @@
                         placeholder="Search for products..."
                         class="input input-bordered w-full sm:w-80"
                         th:value="${searchQuery}" onchange="this.form.submit()">
+                <button class="btn btn-primary ml-1" onclick="this.form.submit()">Go</button>
+                </div>
             </div>
 
 
