@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Order Status - Digital Deals</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<th:block th:insert="AdminNavBar.html"></th:block>
+
+<main>
+    <div class="hero bg-base-200 min-h-[25vh]">
+        <div class="hero-content text-center">
+            <div class="max-w-[80vw]">
+                <h1 class="text-4xl font-bold">Edit Order Status</h1>
+                <p class="py-6">
+                    Update the status of an order efficiently. Ensure accurate records for order management.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-center mt-10">
+        <div class="w-[90vw] max-w-lg bg-white shadow-lg p-6 rounded-lg">
+            <form th:action="@{/admin/update-order-status/{id}(id=${order.id})}" method="post">
+                <!-- Order ID Field (Disabled) -->
+                <div class="form-control mb-4">
+                    <label class="label">Order ID</label>
+                    <input type="text" th:name="orderId" th:value="${order.id}" class="input input-bordered" disabled />
+                </div>
+
+                <!-- Username Field (Disabled) -->
+                <div class="form-control mb-4">
+                    <label class="label">Customer Username</label>
+                    <input type="text" th:name="username" th:value="${order.getUser().getUsername()}" class="input input-bordered" disabled />
+                </div>
+
+                <!-- Order Status Field (Dropdown) -->
+                <div class="form-control mb-4">
+                    <label class="label">Order Status</label>
+                    <select th:name="status" class="select select-bordered">
+                        <option th:each="status : ${statuses}"
+                                th:value="${status}"
+                                th:text="${status}"
+                                th:selected="${order.getDeliveryStatus() == status}">
+                        </option>
+                    </select>
+                </div>
+
+
+                <!-- Save Changes Button -->
+                <div class="form-control mt-4">
+                    <button type="submit" class="btn btn-primary w-full">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer class="mt-12">
+    <div class="h-12 flex justify-center items-center">
+        &copy; All rights reserved.
+    </div>
+</footer>
+</body>
+</html>

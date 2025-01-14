@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Orders Menu - Digital Deals</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<th:block th:insert="AdminNavBar.html"></th:block>
+
+<main>
+    <div class="hero bg-base-200 min-h-[30vh]">
+        <div class="hero-content text-center">
+            <div class="max-w-[80vw]">
+                <h1 class="text-4xl font-bold">Manage Orders</h1>
+                <p class="py-6">
+                    View, update, or process customer orders efficiently. Keep track of order details and statuses.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Bar Section -->
+    <div class="flex justify-center mt-6">
+        <div class="w-[80vw]">
+            <form action="/admin/searchorders" method="get" class="flex items-center">
+                <div class="relative w-full">
+                    <!-- Search Box with Icon -->
+                    <input type="text" name="query" placeholder="Search by Order ID or Phone Number"
+                           class="input input-bordered w-full pr-10" />
+                    <button disabled type="submit" class="absolute top-1 right-3 px-4 py-2 text-white bg-blue-500 rounded-r-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a7 7 0 017 7h-2a5 5 0 00-10 0h-2a7 7 0 017-7z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="flex justify-center mt-10">
+        <div class="w-[90vw]">
+            <!-- Orders Table -->
+            <div class="overflow-x-auto">
+                <table class="table table-zebra w-full">
+                    <!-- Table Head -->
+                    <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Order Date</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <!-- Table Body -->
+                    <tbody>
+                    <tr th:each="order: ${orderList}">
+                        <td th:text="${order.id}"></td>
+                        <td th:text="${order.getUser().getFname()} + ' ' + ${order.getUser().getLname()}"></td>
+                        <td th:text="${order.getUser().getEmail()}"></td>
+                        <td th:text="${order.getUser().getPhone()}"></td>
+                        <td th:text="${order.orderDate}"></td>
+                        <td th:text="'$' + ${order.totalAmount}"></td>
+                        <td th:text="${order.getDeliveryStatus()}"></td>
+                        <td>
+                            <!-- View Details Button -->
+                            <a th:href="@{/admin/order-details/{id}(id=${order.id})}" class="btn btn-info btn-sm">View Details</a>
+                            <!-- Update Status Button -->
+                            <a th:href="@{/admin/update-order-status/{id}(id=${order.id})}" th:if="${order.getDeliveryStatus() != 'Cancelled'}" class="btn btn-success btn-sm">Update Status</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="mt-12">
+    <div class="h-12 flex justify-center items-center">
+        &copy; All rights reserved.
+    </div>
+</footer>
+</body>
+</html>

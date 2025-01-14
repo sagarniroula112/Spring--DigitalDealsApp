@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration - Digital Deals</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<th:block th:insert="NavBar.html"></th:block>
+
+<main class="flex flex-col overflow-y-scroll max-h-[50%]">
+    <div id="loginFormContainer" class="flex flex-col justify-center items-center p-4">
+
+        <h3 class="text-3xl mt-8 mb-8">Registration Form</h3>
+
+        <div class="w-full max-w-[800px]">
+            <form action="/signup" method="post">
+                <!-- Name Fields -->
+                <div class="flex flex-col sm:flex-row sm:space-x-4 mb-4">
+                    <div id="fnameBox" class="flex flex-col w-full sm:w-[48%]">
+                        <label for="fname" class="text-lg mb-1">First Name</label>
+                        <input type="text" required name="fname" id="fname" placeholder="Enter your first name" class="rounded-xl px-4 py-2 w-full">
+                    </div>
+
+                    <div id="lnameBox" class="flex flex-col w-full sm:w-[48%]">
+                        <label for="lname" class="text-lg mb-1">Last Name</label>
+                        <input type="text" required name="lname" id="lname" placeholder="Enter your last name" class="rounded-xl px-4 py-2 w-full">
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div id="emailBox" class="flex flex-col w-full mb-4">
+                    <label for="email" class="text-lg mb-1">Email</label>
+                    <input type="email" required name="email" id="email" placeholder="Enter your email" class="rounded-xl px-4 py-2 w-full">
+                </div>
+
+                <!-- Phone -->
+                <div id="phoneBox" class="flex flex-col w-full mb-4">
+                    <label for="phone" class="text-lg mb-1">Phone</label>
+                    <input type="text" required name="phone" id="phone" placeholder="Enter your phone" class="rounded-xl px-4 py-2 w-full">
+                </div>
+
+                <!-- Hidden Role -->
+                <div id="roleBox" class="flex flex-col w-full mb-4">
+                    <input type="hidden" name="role" id="role" value="customer" class="rounded-xl px-4 py-2 w-full">
+                </div>
+
+                <!-- Address -->
+                <div id="addressBox" class="flex flex-col w-full mb-4">
+                    <label for="address" class="text-lg mb-1">Address</label>
+                    <input type="text" required name="address" id="address" placeholder="Enter your address" class="rounded-xl px-4 py-2 w-full">
+                </div>
+
+                <!-- Username -->
+                <div id="unBox" class="flex flex-col w-full mb-4">
+                    <label for="username" class="text-lg mb-1">Username</label>
+                    <input type="text" required name="username" id="username" placeholder="Enter your username" class="rounded-xl px-4 py-2 w-full">
+                </div>
+
+                <!-- Password -->
+                <div id="pwBox" class="flex flex-col w-full mb-4">
+                    <label for="password" class="text-lg mb-1">Password</label>
+                    <input type="password" required name="password" id="password" placeholder="Enter your password" class="rounded-xl px-4 py-2 w-full">
+                </div>
+
+                <!-- Submit Button -->
+                <div id="btnsContainer" class="mt-6 mb-4">
+                    <input type="submit" value="Sign Up" class="btn btn-primary w-full sm:w-auto" />
+                </div>
+
+                <!-- Alternative Login -->
+                <div id="altLogin" class="mt-8 mb-8 text-center">
+                    <p>Already registered? <a href="/login" class="text-accent underline">Login here.</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="h-10 flex justify-center items-center">
+        &copy; All rights reserved.
+    </div>
+</footer>
+
+</body>
+</html>

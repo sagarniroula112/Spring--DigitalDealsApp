@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<th:block th:insert="NavBar.html"></th:block>
+
+<main>
+    <div class="hero bg-base-200 min-h-[86vh]">
+        <div class="hero-content text-center">
+            <div class="min-w-[25%] max-w-[60rem]">
+                <h1 class="text-5xl font-bold">Welcome to Digital Deals!</h1>
+                <p class="py-6 text-lg">
+                    Your one-stop shop for premium digital goods! Discover an extensive collection of games, software, subscriptions, and gift cards tailored to your needs.
+                </p>
+
+                <p class="py-0 text-md">
+                    <i>You need an account to add products to cart and place the order. But products can be explored.</i>
+                </p>
+
+                <!-- Check if the user is not in session -->
+                <div th:if="${session.activeUser == null}" class="mr-4 mt-7">
+                    <a href="/login"><button class="btn btn-primary mr-1 px-8">Login</button></a>
+                    <a href="/signup"><button class="btn btn-accent px-12">Register</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="h-10 flex justify-center items-center">
+        &copy; All rights reserved.
+    </div>
+</footer>
+</body>
+</html>

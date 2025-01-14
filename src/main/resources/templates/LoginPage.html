@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Digital Deals</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .btn{
+            padding-left: 5rem;
+            padding-right: 7rem;
+        }
+    </style>
+</head>
+<body>
+<th:block th:insert="NavBar.html"></th:block>
+
+<main style="height: 87vh;">
+    <form method="post" action="/login">
+        <div id="loginFormContainer" class="flex flex-col justify-center items-center h-full">
+
+            <h3 class="text-3xl mt-8 mb-8">Login Form</h3>
+
+            <p class="font-bold">[[${existMsg}]]</p>
+            <!-- Username Input -->
+            <div id="unBox" class="flex flex-col w-[90vw] sm:w-[70%] md:w-[50%] lg:w-[30%] mb-4">
+                <label for="username" class="text-lg mb-1">Username</label>
+                <input type="text" name="username" required id="username" placeholder="Enter your username" class="rounded-xl px-4 py-2 w-full">
+            </div>
+
+            <!-- Password Input -->
+            <div id="pwBox" class="flex flex-col w-[90vw] sm:w-[70%] md:w-[50%] lg:w-[30%] mt-4 mb-4">
+                <label for="password" class="text-lg mb-1">Password</label>
+                <input type="password" name="password" required id="password" placeholder="Enter your password" class="rounded-xl px-4 py-2 w-full">
+            </div>
+
+            <!-- Login Button -->
+            <div id="btnsContainer" class="mt-6 mb-4">
+                <input type="submit" value="Login" class="btn btn-primary w-[16vw] sm:w-[20vw] lg:w-[12vw]" />
+            </div>
+
+            <!-- Alternative Login -->
+            <div id="altLogin" class="mt-8 mb-8 text-center">
+                <p>Haven't registered? <a href="/signup" class="text-accent underline">Sign up here.</a></p>
+            </div>
+        </div>
+    </form>
+</main>
+
+<footer>
+    <div class="h-10 flex justify-center items-center">
+        &copy; All rights reserved.
+    </div>
+</footer>
+
+</body>
+</html>

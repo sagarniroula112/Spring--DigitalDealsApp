@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar Component</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-gray-100">
+<header class="shadow-xl bg-white relative z-50">
+    <div class="flex items-center justify-between h-12 px-6">
+        <h2 class="text-purple-500 font-bold text-xl" style="width: 80vw">Digital Deals</h2>
+        <button id="menu-toggle" class="lg:hidden text-purple-500">
+            <!-- Hamburger Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+        <nav id="menu" class="hidden absolute top-12 flex justify-center w-full bg-white lg:static lg:flex lg:gap-10">
+            <ul class="flex flex-col items-center gap-4 py-4 lg:flex-row lg:gap-10 lg:py-0">
+                <li class="hover:text-purple-700 hover:cursor-pointer"><a href="/home">Home</a></li>
+                <li class="hover:text-purple-700 hover:cursor-pointer"><a href="/products">Products</a></li>
+                <li class="hover:text-purple-700 hover:cursor-pointer"><a href="/cart">Cart</a></li>
+                <li class="hover:text-purple-700 hover:cursor-pointer"><a href="/yourorders">Orders</a></li>
+
+                <li th:unless="${session.activeUser}" class="hover:text-purple-700 hover:cursor-pointer">
+                    <a href="/login">Log In</a>
+                </li>
+                <li th:unless="${session.activeUser}" class="hover:text-purple-700 hover:cursor-pointer">
+                    <a href="/signup">Register</a>
+                </li>
+
+                <li th:if="${session.activeUser}" class="hover:text-purple-700 hover:cursor-pointer">
+                    Welcome, <span th:text="${session.activeUser.username}" class="font-bold"></span>
+                </li>
+
+                <li th:if="${session.activeUser}" class="hover:text-purple-700 hover:cursor-pointer">
+                    <a href="/logout">Log out</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<script>
+    // JavaScript to toggle the menu on smaller screens
+    const menuToggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+
+    menuToggle.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+</script>
+</body>
+</html>

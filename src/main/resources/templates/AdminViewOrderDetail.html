@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Details - Digital Deals</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<th:block th:insert="AdminNavBar.html"></th:block>
+
+<main>
+  <!-- Order Details Header -->
+<!--  <div class="hero bg-base-200 min-h-[30vh]">-->
+<!--    <div class="hero-content text-center">-->
+<!--      <div class="max-w-[80vw]">-->
+<!--        <h1 class="text-4xl font-bold">Order Details</h1>-->
+<!--        <p class="py-6">-->
+<!--          Detailed view of the selected order. Review order items, customer information, and status updates.-->
+<!--        </p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <!-- Order Details Section -->
+  <div class="flex justify-center mt-10">
+    <div class="w-[90vw] bg-white shadow-lg rounded-lg p-8">
+      <!-- General Order Info -->
+      <h2 class="text-2xl font-bold mb-6">General Information</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p><strong>Order ID:</strong> <span th:text="${order.id}"></span></p>
+          <p><strong>Order Date:</strong> <span th:text="${order.orderDate}"></span></p>
+          <p><strong>Status:</strong> <span th:text="${order.getDeliveryStatus()}"></span></p>
+        </div>
+        <div>
+          <p><strong>Total Amount:</strong> $<span th:text="${order.totalAmount}"></span></p>
+<!--          <p><strong>Payment Status:</strong> <span th:text="${order.getPaymentStatus()}"></span></p>-->
+        </div>
+      </div>
+
+      <!-- Customer Info -->
+      <h2 class="text-2xl font-bold mt-10 mb-6">Customer Information</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p><strong>Name:</strong> <span th:text="${order.getUser().getFname()} + ' ' + ${order.getUser().getLname()}"></span></p>
+          <p><strong>Email:</strong> <span th:text="${order.getUser().getEmail()}"></span></p>
+        </div>
+        <div>
+          <p><strong>Phone:</strong> <span th:text="${order.getUser().getPhone()}"></span></p>
+          <p><strong>Address:</strong> <span th:text="${order.getUser().getAddress()}"></span></p>
+        </div>
+      </div>
+
+      <!-- Order Items -->
+      <h2 class="text-2xl font-bold mt-10 mb-6">Order Items</h2>
+      <div class="overflow-x-auto">
+        <table class="table table-zebra w-full">
+          <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Discounted Unit Price</th>
+            <th>Total Price</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="item : ${order.getCartitemdummies()}" th:if="${order.id == item.order.getId()}">
+            <td><span th:text="${item.product.title}"></span></td>
+            <td><span th:text="${item.purchaseQuantity}"></span></td>
+            <td><span th:text="'$' + ${item.product.getDiscountedPrice()}"></span></td>
+            <td><span th:text="'$' + ${item.getPurchaseAmount()}"></span></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Actions -->
+      <div class="mt-10 flex justify-end space-x-4">
+        <a href="/admin/manageorders" class="btn btn-secondary">Back to Orders</a>
+        <a th:href="@{/admin/update-order-status/{id}(id=${order.id})}" class="btn btn-success" th:if="${order.getDeliveryStatus() != 'Cancelled'}">Update Status</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="mt-12">
+  <div class="h-12 flex justify-center items-center">
+    &copy; All rights reserved.
+  </div>
+</footer>
+</body>
+</html>

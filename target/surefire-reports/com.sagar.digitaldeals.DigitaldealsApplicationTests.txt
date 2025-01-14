@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.sagar.digitaldeals.DigitaldealsApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 23.82 s -- in com.sagar.digitaldeals.DigitaldealsApplicationTests

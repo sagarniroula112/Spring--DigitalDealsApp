@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Products Menu - Digital Deals</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<th:block th:insert="AdminNavBar.html"></th:block>
+
+<main>
+    <div class="hero bg-base-200 min-h-[30vh]">
+        <div class="hero-content text-center">
+            <div class="max-w-[80vw]">
+                <h1 class="text-4xl font-bold">Manage Products</h1>
+                <p class="py-6">
+                    View, add, update, or delete products to keep your catalog up to date.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Bar Section -->
+    <div class="flex justify-center mt-10">
+        <div class="w-[80vw]">
+            <form action="/admin/searchproducts" method="get" class="flex items-center">
+                <div class="relative w-full">
+                    <!-- Search Box with Icon -->
+                    <input type="text" name="query" placeholder="Search by product name"
+                           class="input input-bordered w-full pr-10" />
+                    <button disabled type="submit" class="absolute top-1 right-3 px-4 py-2 text-white bg-blue-500 rounded-r-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a7 7 0 017 7h-2a5 5 0 00-10 0h-2a7 7 0 017-7z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="flex justify-center mt-5">
+        <div class="w-[90vw]">
+            <!-- Add Product Button -->
+            <div class="flex justify-end mb-4">
+                <a href="/admin/add-product" class="btn btn-primary">+ Add Product</a>
+            </div>
+
+            <!-- Products Table -->
+            <div class="overflow-x-auto">
+                <table class="table table-zebra w-full">
+                    <!-- Table Head -->
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Discounted Price</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <!-- Table Body -->
+                    <tbody>
+                    <tr th:each="product, iterStat : ${productList}">
+                        <td th:text="${iterStat.count}"></td>
+                        <td th:text="${product.title}"></td>
+                        <td th:text="${product.category.getName()}"></td>
+                        <td th:text="'$' + ${product.price}"></td>
+                        <td th:text="'$' + ${product.discountedPrice}"></td>
+                        <td>
+                            <!-- Edit Button -->
+                            <a th:href="@{/admin/edit-product/{id}(id=${product.id})}" class="btn btn-info btn-sm">Edit</a>
+                            <!-- Delete Button -->
+                            <form th:action="@{/admin/delete-product}" method="post" class="inline">
+                                <input type="hidden" th:name="productId" th:value="${product.id}" />
+                                <button type="submit" class="btn btn-error btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="mt-12">
+    <div class="h-12 flex justify-center items-center">
+        &copy; All rights reserved.
+    </div>
+</footer>
+</body>
+</html>

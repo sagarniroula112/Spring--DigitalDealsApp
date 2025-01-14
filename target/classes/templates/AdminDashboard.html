@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Digital Deals</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<th:block th:insert="AdminNavBar.html"></th:block>
+
+<main>
+    <div class="hero bg-base-200 min-h-[40vh]">
+        <div class="hero-content text-center">
+            <div class="max-w-[80vw]">
+                <h1 class="text-4xl font-bold">Admin Dashboard</h1>
+                <p class="py-6">
+                    Welcome to the Admin Dashboard. Use the options below to manage products, orders, and other administrative tasks effectively.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminActionsContainer" class="flex flex-wrap justify-center gap-10 mt-10">
+        <!-- Manage Products Card -->
+        <div class="card bg-base-100 w-[90vw] sm:w-80 md:w-96 lg:w-96 shadow-xl max-h-[40vh]">
+            <div class="card-body text-center">
+                <h2 class="card-title text-2xl">Manage Products</h2>
+                <p>
+                    Add, update, or delete products from the catalog. Keep your product list up to date with ease.
+                </p>
+                <div class="card-actions justify-center mt-4">
+                    <a href="/admin/manageproducts" class="btn btn-primary w-full sm:w-auto">Go to Products</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Orders Card -->
+        <div class="card bg-base-100 w-[90vw] sm:w-80 md:w-96 lg:w-96 shadow-xl max-h-[40vh]">
+            <div class="card-body text-center">
+                <h2 class="card-title text-2xl">Manage Orders</h2>
+                <p>
+                    View, update, or process customer orders efficiently. Monitor and fulfill orders seamlessly.
+                </p>
+                <div class="card-actions justify-center mt-4">
+                    <a href="/admin/manageorders" class="btn btn-accent w-full sm:w-auto">Go to Orders</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="mt-12">
+    <div class="h-12 flex justify-center items-center">
+        &copy; All rights reserved.
+    </div>
+</footer>
+</body>
+</html>

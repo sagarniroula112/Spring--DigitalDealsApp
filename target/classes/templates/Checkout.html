@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Summary - Digital Deals</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Include jsPDF library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+<th:block th:insert="NavBar.html"></th:block>
+
+<main class="container mx-auto">
+  <!-- Hero Section -->
+  <div class="hero bg-base-200 rounded-lg shadow-md p-8">
+    <div class="hero-content text-center flex flex-col">
+      <h1 class="text-4xl font-bold">Order Summary</h1>
+      <p class="py-4">Thank you for your purchase! Here’s a summary of your order.</p>
+    </div>
+  </div>
+
+  <!-- Order Details -->
+  <div id="order-summary" class="mt-2 bg-base-100 shadow p-6 rounded-lg">
+    <h2 class="text-2xl font-semibold mb-4">Order Details</h2>
+    <div>
+      <p><strong>Order ID:</strong> <span>[[${order.getId()}]]</span></p>
+      <p><strong>Order Date:</strong> <span>[[${order.getOrderDate()}]]</span></p>
+      <p><strong>Delivery Status:</strong> <span>[[${order.getDeliveryStatus()}]]</span></p>
+      <p><strong>Placed by:</strong> <span th:text="${activeUser.getFname()}+ ' '+${activeUser.getLname()}"></span></p>
+      <p><strong>Address:</strong> <span>[[${activeUser.getAddress()}]]</span></p>
+    </div>
+  </div>
+
+  <!-- Items Summary -->
+  <div class="mt-8 bg-base-100 shadow p-6 rounded-lg">
+    <h2 class="text-2xl font-semibold mb-4">Items Purchased</h2>
+    <table class="table-auto w-full border-collapse border border-gray-200">
+      <thead>
+      <tr>
+        <th class="border px-4 py-2">Product</th>
+        <th class="border px-4 py-2">Quantity</th>
+        <th class="border px-4 py-2">Price</th>
+        <th class="border px-4 py-2">Total</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="ci: ${allCartItems}">
+        <td class="border px-4 py-2" th:text="${ci.product.title}"></td>
+        <td class="border px-4 py-2 text-center" th:text="${ci.getPurchaseQuantity()}"></td>
+        <td class="border px-4 py-2 text-center" th:text="'$'+${ci.getProduct().getDiscountedPrice()}"></td>
+        <td class="border px-4 py-2 text-center" th:text="'$'+${ci.getPurchaseAmount()}">$99.99</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Summary Section -->
+  <div class="mt-8 bg-base-100 shadow-lg p-6 rounded-lg">
+    <h2 class="text-2xl font-semibold mb-4">Summary</h2>
+    <div class="flex justify-between font-semibold text-lg">
+      <p>Total:</p>
+      <p th:text="'$'+${order.getTotalAmount()}+ ' + $10 (Delivery)'"></p>
+    </div>
+  </div>
+
+  <!-- Button Section -->
+  <div class="flex justify-center mt-8">
+    <button id="download-pdf" class="btn btn-primary" disabled>Download PDF</button>
+  </div>
+</main>
+
+<footer class="mt-12">
+  <div class="h-12 flex justify-center items-center">
+    &copy; Digital Deals, All rights reserved.
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('download-pdf').addEventListener('click', async () => {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF();
+
+      // Get the order summary HTML
+      const orderSummary = document.getElementById('order-summary').innerHTML;
+
+      // Use jsPDF's `html` method to generate the PDF from HTML
+      await pdf.html(document.body, {
+        callback: (doc) => {
+          doc.save('order-summary.pdf'); // Download the PDF
+        },
+        x: 10,
+        y: 10,
+        html2canvas: { scale: 0.8 }, // Adjust scale to fit content
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
