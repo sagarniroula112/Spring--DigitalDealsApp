@@ -1,5 +1,6 @@
 # Digital Deals: An Ecommerce Platform App
 ## Hosted on render at: https://springmvc-digitaldealsapp.onrender.com/
+## This initially takes 50 seconds or more to spin up at first visit due to render.com policies.
 
 # Screenshots:
 
